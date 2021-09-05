@@ -78,3 +78,52 @@
 </body>
 
 </html>
+<script>
+    let objarray = [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' },
+    ];
+
+    // objarray 에 { text: 'Four', value: 'D' } 를 추가하시오.
+    objarray[objarray.length]= { text: 'Four', value: 'D' };
+    console.log("2",objarray);
+
+    //objarray 에서 { text: 'Two', value: 'B' } 를 { text: '2', value: '2' } 로 바꾸시오.
+    let findIndex= objarray.findIndex( (value, index,array)=>{
+        return value.text === 'Two' && value.value === 'B';
+    })
+    console.log("3 findIndex:", findIndex);
+    objarray[findIndex]={ text: '2', value: '2' };
+    console.log("3", objarray);
+
+    // 4. objarray 에서 filter 메서드를 사용하여 text의 값이 'One' 인 객체들을 찾으시오
+    const objArrayFilter =objarray.filter( (value, index, array)=>{
+        return value["text"] === "One"
+    })
+    console.log("4",objArrayFilter);
+
+  //5 objarray 에서 { text: 'Three', value: 'C' } 를 삭제하시오.
+  let findIndex2= objarray.findIndex( (item, index,array)=>{
+        return item.text === 'Three' && item.value === 'C';
+    })
+    const delteArray= objarray.splice(findIndex2,1);
+   console.log("delteArray",delteArray);
+
+    //6 objarray 에서 map 메서드를 사용하여 no 프로퍼티 추가하시오
+    const mapArray = objarray.map((item, index, array)=>{
+        item.no = index;
+        return item;
+    });
+    console.log("mapArray",mapArray);
+    //objarray 에서 reduce 메서드를 사용하여 각 요소의 value 프로퍼티 를 합쳐서 하나의 문자열로 만드시오
+    const reducer =objarray
+    .map( (item)=>{
+        return {...item};
+    })
+    .reduce((pvalue, cvalue, index, array)=>{
+        pvalue.value=pvalue.value+cvalue.value;
+        return pvalue;
+    });
+    console.log("reducer",reducer.value);
+</script>

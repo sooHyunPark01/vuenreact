@@ -14,7 +14,7 @@
     "editor.snippetSuggestions": "top",
     "editor.fontSize": 20,
     "editor.renderWhitespace": "all",
-    "workbench.colorTheme": "Visual Studio Light",
+    "workbench.colorTheme": "Default Dark+",
     "terminal.integrated.defaultProfile.windows": "Git Bash",
     "terminal.integrated.fontSize": 20,
     // files
