@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React 라우팅</title>
+    <link rel="stylesheet" href="../css/reset.css" />
+</head>
+<body>
+    
+    <div>
+        <ul>
+            <li class="langjs">
+                <h3>1. 라우팅 설정 예제</h3>
+                <ol>
+                    <li>Home, Memo,  Trash 컴포넌트를 만든다</li>
+                    <li>App 컴포넌트를 만들다
+                        <ol>
+                            <li>라우팅 기능을 추가 한다. BrowserRouter, Switch, Route, Redirect 컴포넌트</li>
+                            <li>메뉴 기능을 추가한다. Link, NavLink 컴포넌트 </li>
+                        </ol>
+                    </li>
+                    <li>/ 요청으로 들어오면: Home 컴포넌트를 렌더링 한다</li>
+                    <li>/memo 요청으로 들어오면: Memo 컴포넌트를 렌더링 한다</li>
+                    <li>/trash 요청으로 들어오면: Trash 컴포넌트를 렌더링 한다</li>
+                    <li>위 세 개 규칙을 벗어나면: 루트(/) 요청으로 리다이렉션 한다</li>
+                </ol>
+            </li>
+            <li class="langjs">
+                <h3>2-1. 라우팅 설정 예제 1</h3>
+                <xmp class="langjs">
+<BrowserRouter>
+    <Switch>
+        <Route exact path="/" exact component={Home} />
+        <Route exact path="/memo" component={Memo} />
+        <Route exact path="/trash" component={Trash} />
+        <Redirect path="*" to="/" />
+    </Switch>
+</BrowserRouter>
+                </xmp>
+                <h3 class="langjs">2-2. 라우팅 설정 예제 2</h3>
+                <xmp class="langjs">
+<BrowserRouter>
+    <Switch>
+        <Route exact path="/"> <Home/> </Route>
+        <Route exact path="/memo"><Memo/></Route>
+        <Route exact path="/trash"><Trash/></Route>
+        <Redirect path="*" to="/" />
+    </Switch>
+</BrowserRouter>
+                </xmp>
+            </li>
+            <li class="langjs">
+                <h3 class="langjs">3. 메뉴 설정 예제 </h3>
+                <ul>
+                    <li>Link나 NavLink 컴포넌트를 사용하여 작성.</li>
+                    <li>새로고침이 발생하면 안된다. a 태그 사용 불가.</li>
+                </ul>
+                <xmp class="langjs">
+<div>
+    <ul>
+        <li><NavLink ativeClassName={} ativeStyle={} exact to="/">Home</Link></li>
+        <li><NavLink ativeClassName={} ativeStyle={} exact to="/memo">Memo</Link></li>
+        <li><NavLink ativeClassName={} ativeStyle={} exact to="/trash">Trash</Link></li>
+    </ul>
+</div>
+                </xmp>
+            </li>
+            <li class="langjs">
+                <h3 class="langjs">4. PathVariable</h3>
+                <ul>
+                    <li>url 에 인자를 넘기는 방법</li>
+                    <li>
+                        예시) /about/value/value2 형태<br>
+                        &lt;Route path="/about/:key/:key2" component={About} /&gt; <br>
+                        props.match.params.key, props.match.params.key2 로 접근 가능
+                    </li>
+                </ul>
+                <ul>
+
+                </ul>
+                <pre class="langjs">
+                    <code class="langjs">
+    &lt;Route path="/about/:name?/:city?" component={About}&gt;&lt;/Route&gt;
+
+    예시)
+    http://localhost:3000/about
+    http://localhost:3000/about/홍길동
+    http://localhost:3000/about/홍길동/서울시
+    http://localhost:3000/about/아이유
+    http://localhost:3000/about/아이유/서울시
+                    </code>
+                </pre>
+            </li>
+            <li class="langjs">
+                <h3 class="langjs">5. QueryString</h3>
+                <ul>
+                    <li>url 의 ? 다음에 인자를 넘기는 방법</li>
+                    <li>
+                        예시) /about?key=value&key2=value2 형태 <br>
+                        props.location.search 로 접근 가능
+                    </li>
+                </ul>
+                <ul>
+
+                </ul>
+                <pre class="langjs">
+                    <code class="langjs">
+    var obj = {};
+    if( location.search.length > 1){
+        var query = location.search.substring(1);
+
+        // &로 자르기
+        var params = query.split('&');
+
+        for(var i=0; i < params.length; i=i+1){
+            // =로 자르기
+            var arr = params[i].split('=')
+            if( arr.length===2 ) {
+                obj[ arr[0] ] = arr[1];
+            }
+            else{
+                obj[ arr[0] ] = undefined;
+            }
+        }
+    }
+
+    for(var key in obj ){
+        console.log(key, obj[key]);
+    }
+                    </code>
+                </pre>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
