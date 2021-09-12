@@ -77,7 +77,7 @@
                 </a>
             </li>
         </ul>
-        <img v:bind:src="img_image3" />
+        <img id="img2" v-bind:src="img_img3" />
         <hr />
 
         <xmp>
@@ -89,8 +89,8 @@
             이미지 위에 마우스를 내리면(mouseout ) ==> ../images/but1.gif , ../images/img_swap_off.png
             이미지 위에 마우스를 올리면(mouseover) ==> ../images/but2.gif , ../images/img_swap_on.png
         </xmp>
-        <img src="img_but1" id="but1"     mouseover="imageover" mouseout="imageout" />
-        <img src="img_swap" id="img-swap" mouseover="imageover" mouseout="imageout" />
+        <img v:bind:src="img_but1" id="but1"     v-on:mouseover="imageover" v-on:mouseout="imageout" />
+        <img  v:bind:src="img_swap" id="img-swap" v-on:mouseover="imageover" v-on:mouseout="imageout" />
         <hr />
 
         <xmp>
@@ -152,13 +152,22 @@
 
 <!-- vue 플러그인 임포트   -->
 <script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+
+</script>
 <script>
 new Vue({
     /* edtmc^2w */
     el: "#app",
     data: {
         /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
-        img_image3:null,
+        img_img3:'../images/image3.jpg',
+        img_but1:'../images/but1.gif',
+        img_swap:'../images/img_swap_off.gif ',
     },
     //template: ``,
     methods: {
@@ -166,8 +175,18 @@ new Vue({
         imageclick(){
             event.preventDefault(); // a태그 href 취소
             event.stopPropagation(); // 이벤트 버블링 취소
-            this.$set(this.$data, 'img_image3',event.target.href);
-            console.info(this.$data.img_image3);
+            let href =event.target.href;
+            this.$set(this.$data, 'img_img3',href);
+        },
+        imageover(){
+            if( event.target.id === 'but1'){
+                this.$data.img_but1='../images/but2.gif'
+            }else if( event.target.id === 'img-swap'){
+                this.$data.img_but1='/images/img_swap_off.png';
+            }
+        },
+        imageout(){
+            this.$data.img_but1='../images/but1.gif';
         }
     },
 });
