@@ -74,6 +74,63 @@
 <!-- vue 플러그인 임포트   -->
 
 
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script>
+ new Vue({
+     /* edtmc^2w */
+     el: "#app1", //id는 #
+     data: {
+         /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            msg:"Hello"
+     },
+     //template: ``,
+     methods: {
+         /* 이벤트 핸들러 등록 + 일반 함수 */
+         app2BtnClick(){
+                this.$data.msg="abc";
+        }
+     },
+ });
 
+ /* 자바스크립에서 ViewModel객체 구현하기
+        뷰 인스턴스의
+            data: {
+                msg: "Hello",
+            }
+        의 기능을 직접 구현하여 본다
+
+        #app2 에 Object.defineProperty() 메서드의 get, set 설정하고 "123" 을 출력한다.
+        1. document.getElementById() 를 사용하여 #app2 엘리먼트를 찾는다.
+
+ */
+    const data={
+        msg:"Hello",
+    }
+    Object.defineProperty(
+        data,
+        "msg",
+        {
+            get(){
+                // getter 화면에서 값을 가져온다.
+                return document.getElementById('app2').innerText;
+            },
+            set(value){
+                //setter 화면을 바꾼다.
+                document.getElementById('app2').innerText=value;
+            }
+        },
+    );
+
+    //debugger;
+    console.log(data.msg);
+
+    //데이터에 값을 넣으면 화면이 바뀐다.
+    data.msg="123";
+
+    function app2BtnClick(){
+        data.msg="abc";
+    }
+</script>
 
 

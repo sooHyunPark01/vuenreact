@@ -37,6 +37,10 @@
     <hr>
 
     <div id="app" class="col-md-10 offset-md-1">
+        <label for="name">이름:</label><input v-model:value="name">
+        <label for="tel"></label>전화번호:</label><input v-model:value="tel">
+        <label for="address"></label>주소:</label><input v-model:value="address">
+        <button v-on:click="addBtn">추가</button>
         <table id="list" class="table-bordered">
             <thead>
                 <tr class="bg-warning text-white text-center">
@@ -58,12 +62,48 @@
     </div>
 
 
-    
+
 
 </body>
 
 </html>
 
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            contacts:[
+                {name:'설현',tel:'010-3456-8200',address:'서울'},
+                {name:'혜리',tel:'010-3456-8211',address:'부산'},
+            ],
+            name:'',
+            tel:'',
+            address:'',
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 + 일반 함수 */
+            addBtn(){
+                let obj={
+                        name:this.$data.name,
+                        tel:this.$data.tel,
+                        address:this.$data.address,
+                };
+                this.$set(this.$data.contacts, this.$data.contacts.length, obj);
+
+                //입력값 초기화
+                this.$set(this.$data, 'name', '');
+                this.$set(this.$data, 'tel', '');
+                this.$set(this.$data, 'address', '');
+            }
+        },
+    });
+
+</script>
 <!-- vue 플러그인 임포트   -->
 
 

@@ -67,17 +67,17 @@
         </xmp>
         <ul>
             <li>
-                <a class="image3" href="../images/image3.jpg" click="imageclick">
+                <a class="image3" href="../images/image3.jpg" v-on:click="imageclick">
                     강아지 사진
                 </a>
             </li>
             <li>
-                <a class="image3" href="../images/image4.jpg" click="imageclick">
+                <a class="image3" href="../images/image4.jpg" v-on:click="imageclick">
                     고양이 사진
                 </a>
             </li>
         </ul>
-        <img id="img2" src="img_image3" />
+        <img v:bind:src="img_image3" />
         <hr />
 
         <xmp>
@@ -100,19 +100,19 @@
             span에 mouseout 이벤트 핸들러를 작성하시오.  ==> spanmouseout.  background-color를 red로 설정
         </xmp>
         <span mouseover= "spanmouseover"
-              mousedown= "spanmousedown"
-              mouseup  = "spanmouseup"
-              mouseout = "spanmouseout" >
+        mousedown= "spanmousedown"
+        mouseup  = "spanmouseup"
+        mouseout = "spanmouseout" >
         </span>
         <span mouseover= "spanmouseover"
-              mousedown= "spanmousedown"
-              mouseup  = "spanmouseup"
-              mouseout = "spanmouseout" >
+        mousedown= "spanmousedown"
+        mouseup  = "spanmouseup"
+        mouseout = "spanmouseout" >
         </span>
         <span mouseover= "spanmouseover"
-              mousedown= "spanmousedown"
-              mouseup  = "spanmouseup"
-              mouseout = "spanmouseout">
+        mousedown= "spanmousedown"
+        mouseup  = "spanmouseup"
+        mouseout = "spanmouseout">
         </span>
         <hr />
 
@@ -144,12 +144,35 @@
 
     </div>
 
-    
+
 
 </body>
 
 </html>
 
+<!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script>
+new Vue({
+    /* edtmc^2w */
+    el: "#app",
+    data: {
+        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+        img_image3:null,
+    },
+    //template: ``,
+    methods: {
+        /* 이벤트 핸들러 등록 + 일반 함수 */
+        imageclick(){
+            event.preventDefault(); // a태그 href 취소
+            event.stopPropagation(); // 이벤트 버블링 취소
+            this.$set(this.$data, 'img_image3',event.target.href);
+            console.info(this.$data.img_image3);
+        }
+    },
+});
+
+</script>
 <!-- vue 플러그인 임포트   -->
 
 
