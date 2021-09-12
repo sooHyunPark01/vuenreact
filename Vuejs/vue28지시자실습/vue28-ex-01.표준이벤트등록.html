@@ -182,11 +182,15 @@ new Vue({
             if( event.target.id === 'but1'){
                 this.$data.img_but1='../images/but2.gif'
             }else if( event.target.id === 'img-swap'){
-                this.$data.img_but1='/images/img_swap_off.png';
+                this.$data.img_swap='/images/img_swap_off.png';
             }
         },
         imageout(){
-            this.$data.img_but1='../images/but1.gif';
+            if( event.target.id === 'but1'){
+                this.$data.img_but1='../images/but1.gif'
+            }else if( event.target.id === 'img-swap'){
+                this.$data.img_swap='/images/img_swap_on.png';
+            }
         }
     },
 });
