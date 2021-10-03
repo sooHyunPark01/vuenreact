@@ -11,6 +11,24 @@ export default  new Vuex.Store({
      * 첫번째인자: 무조건 mutations로 고정.
      * 두번째인자: 값. store.dispatch()호출시 넘겨지는 값.
      */
+      getTodo(mutations){
+        // import axios from "axios";
+        
+        axios({
+            url: "http://localhost:5050/todo/get",  // 호출되는 서버 주소.
+            method: "get",       // request method: get, post, delete, put
+            params: { },  // 서버로 보내는 데이터. 예시) { data1:"test1", data2:"test2" } 
+            timeout: 30000,    // 최대 대기 시간: 30초. 30초 이상이 되면 fail 부분이 실행됨.
+            responseType: "json",  // response로 넘어오는 데이터 형태: text, html, xml, json, jsonp, script
+        })
+        .then( (res) => {
+            mutations.commit("todo",res.data)
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+      },
       clearAll(mutations/* 고정 */){
         mutations.commit("clearAll")
       },
@@ -30,6 +48,9 @@ export default  new Vuex.Store({
      * 첫번째인자: 무조건 state 로 고정.
      * 두번째인자: 값. mutations.commit() 호출시 넘겨지는 값.
      * */
+      todo(state, params){
+        
+      },
       clearAll(state){
         state.todoItems =[];
       },
