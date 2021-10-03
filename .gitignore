@@ -1,6 +1,0 @@
-*.zip
-*.psd
-**/node_modules/
-**/bin/
-**/zoom.txt
-**/.eslintcache
