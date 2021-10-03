@@ -1,45 +1,17 @@
+
 <style scoped>
-body {
-    text-align: center;
-    background-color: #f6f6f8;
-}
-input {
-    border-style: groove;
-    width: 200px;
-}
-button {
-    border-style: groove;
-}
-.shadow {
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
-}
+    
 </style>
 
 <template>
-    <div id="app">
-        <!-- TodoHeader -->
-        <TodoHeader></TodoHeader>
-
-        <!-- TodoInput -->
-        <TodoInput></TodoInput>
-
-        <!-- TodoList -->
-        <TodoList></TodoList>
-
-        <!-- TodoFooter -->
-        <TodoFooter></TodoFooter>
+    <div class="signup">
+        <h1>This is an signup page</h1>
+        <user-register></user-register>
     </div>
 </template>
 
-<style scoped>
-    
-</style>
-
-<template>
-    
-</template>
-
 <script>
+import UserRegisterVue from '../components/user/UserRegister.vue';
     export default { 
         /* pdtmc^2w */
         props: [] ,
@@ -57,10 +29,7 @@ button {
         components: {
            /* 전역 컴포넌트는 등록하지 않는다. */
            /* 지역 컴포넌트나 파일 컴포넌트이면 등록해야 한다 . 예시) "태그명" : 컴포넌트명 */
-           "TodoHeader":,
-           "TodoInput":,
-           "TodoList":,
-           "TodoFooter":,
+           'user-register':UserRegisterVue,
             
         },
         computed: {

@@ -13,6 +13,11 @@ import child2  from "./components/Child2.vue"
 
 export default {
   name: 'App',
+  data:function(){
+    return {
+      msg: "Welcom to Your Vue.js App",
+     }
+  },
   components: {
     child1,
     child2,

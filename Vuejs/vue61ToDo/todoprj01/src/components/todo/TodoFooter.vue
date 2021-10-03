@@ -1,42 +1,22 @@
 <style scoped>
-body {
-    text-align: center;
-    background-color: #f6f6f8;
+.clearAllContainer {
+    width: 8.5rem;
+    height: 50px;
+    line-height: 50px;
+    background-color: white;
+    border-radius: 5px;
+    margin: 0 auto;
 }
-input {
-    border-style: groove;
-    width: 200px;
-}
-button {
-    border-style: groove;
-}
-.shadow {
-    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
+.clearAllBtn {
+    color: #e20303;
+    display: block;
 }
 </style>
 
 <template>
-    <div id="app">
-        <!-- TodoHeader -->
-        <TodoHeader></TodoHeader>
-
-        <!-- TodoInput -->
-        <TodoInput></TodoInput>
-
-        <!-- TodoList -->
-        <TodoList></TodoList>
-
-        <!-- TodoFooter -->
-        <TodoFooter></TodoFooter>
+    <div class="clearAllContainer">
+        <span class="clearAllBtn" v-on:click="clearAll">Clear All</span>
     </div>
-</template>
-
-<style scoped>
-    
-</style>
-
-<template>
-    
 </template>
 
 <script>
@@ -52,15 +32,13 @@ button {
         //template: ``,
         methods: {
            /* 이벤트 핸들러 등록 + 일반 함수 */
-            
+            clearAll(){
+                this.$emit("clearAll")
+            }
         },
         components: {
            /* 전역 컴포넌트는 등록하지 않는다. */
            /* 지역 컴포넌트나 파일 컴포넌트이면 등록해야 한다 . 예시) "태그명" : 컴포넌트명 */
-           "TodoHeader":,
-           "TodoInput":,
-           "TodoList":,
-           "TodoFooter":,
             
         },
         computed: {
