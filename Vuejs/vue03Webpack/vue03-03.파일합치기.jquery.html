@@ -76,20 +76,22 @@
     <hr>
     <div>
         <div w3-include-header="header.html"></div>
-
         <section id="page1" data-role="page">
             <div class="content" data-role="content">
                 컨텐츠
             </div>
         </section>
-
         <div w3-include-footer="footer.html"></div>
     </div>
 </body>
 
 </html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
 <script>
-   $("[w3-include-header]").load("header.html");
-   $("[w3-include-footer]").load("footer.html");
+    // <div w3-include-header="header.html"></div> 찾기
+    $("div[w3-include-header]").load( "header.html" );
+    
+    // <div w3-include-footer="footer.html"></div> 찾기
+    $("div[w3-include-footer]").load( "footer.html")
 </script>

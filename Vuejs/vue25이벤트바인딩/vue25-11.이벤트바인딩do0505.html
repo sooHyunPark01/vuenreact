@@ -30,12 +30,6 @@
     문제2. 예제2 기능을 완성하시오.
     문제3. 예제3 기능을 완성하시오.
 
-    도전1. numInput 에 입력된 값이 있으면 입력 값을 사용하여 더하고
-          numInput 에 입력된 값이 없으면 10을 사용하여 더하도록 수정하시오.
-
-           <button v-on:click="clickBtn10" data-num="10">10씩 증가</button>
-           <input type="number" name="number" v-model:value="numInput">
-
     [참조]page 105, 106, 107
     </xmp>
     <hr>
@@ -70,45 +64,39 @@
 
 <!-- vue 플러그인 임포트   -->
 <script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
-<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
-<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
 <script>
     new Vue({
         /* edtmc^2w */
         el: "#app",
         data: {
             /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
-            sum1:0,
-            numInput:0,
-            sum10:0,
-            computedNumInput:0,
-            sumInput:0,
+            sum1: 0,
+            numInput: 0,
+            sumInput: 0,
+            sum10: 0,
         },
         //template: ``,
         methods: {
             /* 이벤트 핸들러 등록 + 일반 함수 */
             clickBtn1(){
-                this.$set(this.$data, 'sum1', this.$data.sum1+1);
+                // this.$data.sum1 = this.$data.sum1 + 1;
+                this.$set( this.$data, 'sum1', this.$data.sum1 + 1)
             },
             clickBtnInput(){
-                const numInput =Number(this.$data.numInput);
-                this.$set(this.$data, 'sumInput', Number(this.$data.sumInput)+numInput );
+                const numInput = Number(this.$data.numInput);
+                // this.$data.sumInput = this.$data.sumInput + numInput;
+                this.$set( this.$data, 'sumInput',  this.$data.sumInput + numInput);
             },
             clickBtn10(){
-                 const num =Number(event.target.dataset.num);
-                 this.$set(this.$data,'sum10', this.$data.sum10+num);
-            },
-
-            clickBtnComputedNumInput(){
-
+                console.log(event.target.dataset.num);
+                const num = Number(event.target.dataset.num);
+                // this.$data.sum10 = this.$data.sum10 + num;
+                this.$set( this.$data, 'sum10', this.$data.sum10 + num);
             },
         },
     });
 
 </script>
-<!-- vue 플러그인 임포트   -->
 
 
 

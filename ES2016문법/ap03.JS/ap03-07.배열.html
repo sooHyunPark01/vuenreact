@@ -92,7 +92,7 @@
                     </pre>
                 </li>
                 <li class="langjs">
-                    <h3 class="langjs">RCUD2S: Read. 배열 요소 추가</h3>
+                    <h3 class="langjs">RCUD2S: Read. 배열 요소 출력</h3>
                     <p class="langjs">
                         [true, 100, 'two'] 에서 두번째 요소값을 console.log()를 사용하여 콘솔에 출력하시오<br />
                         실행결과예시) 100
@@ -121,7 +121,7 @@
                     <p class="langjs">
                         arr 배열의 첫번째 요소를 "update"로 바꾸고<br />
                         arr 배열을 console.log()를 사용하여 콘솔에 출력하시오<br />
-                        실행결과예시) ["update", 100, "two", "three", undefined, "four", "update"]
+                        실행결과예시) ["update", 100, "two", "three", undefined, "four", "aaa"]
                     </p>
                     <pre class="langjs">
                         <code class="langjs">
@@ -133,7 +133,7 @@
                     <h3 class="langjs">RCUD2S: Delete. 배열 요소 삭제</h3>
                     <p class="langjs">
                         arr 배열에서 "two"를 삭제하고 배열을 콘솔에 출력하시오<br />
-                        실행결과예시) ["update", 100, "three", undefined, "update"]
+                        실행결과예시) ["update", 100, "three", undefined, "four", "aaa"]
                     </p>
                     <pre class="langjs">
                         <code class="langjs">
@@ -149,7 +149,6 @@
                     </p>
                     <ul>
                         <li>filter() 메서드를 사용하여</li>
-                        <li>for문 사용하여</li>
                     </ul>
                     <pre class="langjs">
                         <code class="langjs">
@@ -163,7 +162,7 @@
                         var arr = [1,3, 3784, 98, 842, 8230] 을 오름차순으로 정렬하시오. <br />
                         실행결과예시) <br />
                         배열 요소 정렬 전 (6) [1, 3, 3784, 98, 842, 8230] <br />
-                        배열 요소 정렬 후 (6) [1, 3, 3784, 8230, 842, 98] <br />
+                        배열 요소 정렬 후 (6) [1, 3, 98, 842, 3784, 8230] <br />
                     </p>
                     <pre class="langjs">
                         <code class="langjs">
@@ -176,7 +175,6 @@
                     <p class="langjs">var arr = [1,3, 3784, 98, 842, 8230] 의 복제 배열을 만드시오.</p>
                     <ul>
                         <li>map() 메서드를 사용하여</li>
-                        <li>for문 사용하여</li>
                     </ul>
                     <pre class="langjs">
                         <code class="langjs">
@@ -192,7 +190,21 @@
                     </p>
                     <ul>
                         <li>reduce() 메서드를 사용하여</li>
-                        <li>for문을 사용하여</li>
+                    </ul>
+                    <pre class="langjs">
+                        <code class="langjs">
+
+                        </code>
+                    </pre>
+                </li>
+                <li class="langjs">
+                    <h3 class="langjs">findIndex() 메서드 사용법을 학습한다.</h3>
+                    <p class="langjs">
+                        var arr = [1,3, 3784, 98, 842, 8230] 배열에서 98 의 인덱스를 찾으시오 <br />
+                        실행결과예시) 3
+                    </p>
+                    <ul>
+                        <li>findIndex() 메서드를 사용하여</li>
                     </ul>
                     <pre class="langjs">
                         <code class="langjs">
@@ -206,62 +218,65 @@
 </html>
 
 <script>
-    //1. 배열 생성
+
+    // 1. 배열 리터럴([])을 이용한 배열 생성
     let arr = [true, 100, "two"];
 
-    //2.배열 요소 출력
-    console.info( arr[1] );
+    // 2. 배열 요소 출력
+    console.log( arr[1] ); // 100
 
-    //3. 배열 요소 추가
-    arr[arr.length] ="three";
-    arr[arr.length] =undefined;
-    arr[arr.length] ="four";
-    arr[arr.length] ="aaa";
-    console.info( arr );
+    // 3. 배열 요소 추가
+    console.log( arr ); // [true, 100, "two", "three", undefined, "four", "aaa"]
+    arr[arr.length] = "three";
+    arr[arr.length] = undefined;
+    arr[arr.length] = "four";
+    arr[arr.length] = "aaa";
+    console.log( arr ); // [true, 100, "two", "three", undefined, "four", "aaa"]
 
-    //4.배열 요소 수정
-    arr[0]="update";
-    console.info( arr );
+    // 4.  배열 요소 수정
+    arr[0] = "update";
+    console.log( arr ); // ["update", 100, "two", "three", undefined, "four", "aaa"]
 
-    //5. Delete 배열요소 삭제
-    arr.splice(2,1);
-    console.info( arr );
+    // 5. Delete. 배열 요소 삭제
+    console.log("배열 요소 삭제 전", arr);
+    arr.splice(2, 1);
+    console.log("배열 요소 삭제 후", arr);
+    console.log( arr ); // ["update", 100, "three", undefined, "update", "four", "aaa"]
 
-    //6. 배열 검색 filter
-    arr = [1,3, 3784, 98, 842, 8230];
-    const arrFilter= arr.filter ( (value, index, array)=>{
-        return value >100 ;
+    // 6. Search. 배열 검색. filter
+    arr =  [1,3, 3784, 98, 842, 8230];
+    const arrFilter = arr.filter( (value, index, arra)=>{
+        return value > 100;
     });
-    // arr= arr.filter(arrNumOne => arrNumOne  > 100 );
-    console.info("arrFilter",arrFilter);
+    console.log("배열 검색 후 원본 데이터", arr);
+    console.log("배열 filter를 이용한 검색 결과", arrFilter ); // [3784, 842, 8230]
 
-    //7. Sort. 배열 정렬
-    arr = [1,3, 3784, 98, 842, 8230];
-    console.info( "arr",arr );
-    const arrSort=arr.sort( (a,b)=> {
-        return a-b;
+    // 7. Sort. 배열 정렬
+    const arrSort = arr.sort( (a, b)=>{
+        return a - b;
     });
-    console.info("arrSort", arrSort );
+    console.log("배열 요소 정렬 전", arr); // [1, 3, 3784, 98, 842, 8230]
+    console.log("배열 요소 정렬 후", arrSort ); // [1, 3, 98, 842, 3784, 8230]
 
-    //8. 배열 복제 map()
+    // 8. map() 메서드 사용법을 학습한다.
     arr = [1,3, 3784, 98, 842, 8230];
-    const arrMap=arr.map( (value, index, array)=>{
-        return value*10;
-    } );
-    console.info( "arrMap",arrMap );
-    //9. reduce 메소드 사용법 총합을 구하시오
+    const arrMap = arr.map( (value, index, array)=>{
+        return value * 10;
+    });
+    console.log("map를 이용한 배열의 원본 데이터", arr);
+    console.log("map를 이용해 생성된 배열", arrMap );
+
+    // 9. reduce() 메서드 사용법을 학습한다.
     arr = [1,3, 3784, 98, 842, 8230];
     const sum = arr.reduce( (pvalue, cvalue, index, array)=>{
-        return pvalue+cvalue;
-    });
-    console.log("arrSum",sum);
-
-    //10. arr = [1,3, 3784, 98, 842, 8230];배열에서 98의 인덱스를 찾으시오.
-    arr = [1,3, 3784, 98, 842, 8230];
-    const arrFindIndex= arr.findIndex( (value, index, obj)=>{
-        return value === 98;
+        return pvalue + cvalue;
     })
-    console.info("arrFindIndex",arrFindIndex);
+    console.log("sum",  sum ); //
 
+    // 1O. [1,3, 3784, 98, 842, 8230] 배열에서 98의 인덱스를 찾으시오.
+    arr = [1,3, 3784, 98, 842, 8230];
+    const index = arr.findIndex( (value, index, array)=>{
+        return value === 98;
+    });
+    console.log( index ); // 3
 </script>
-

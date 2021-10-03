@@ -49,8 +49,49 @@
     </div>
 </body>
 </html>
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script>
+    var ChildComponent = {
+        template: `
+            <div>
+                <button v-on:click="showLog">show</button>
+            </div>
+        `,
+        methods: {
+            /* 이벤트 핸들러 등록 + 일반 함수 */
+            showLog(){
+                debugger;
+                // this.$emit( "????", 값1, 값2, ...);
+                this.$emit( "show-log", 123, 'abc');
+            }
+        },
+    };
 
-<!-- vue 플러그인 임포트   -->
+    debugger;
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            mesg: null,
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 + 일반 함수 */
+            printText(param1, param2){
+                debugger;
+                this.$data.mesg = param1  + " >>>> " + param2;
+            }
+        },
+        components: {
+            /* 전역 컴포넌트는 등록하지 않는다. */
+            /* 지역 컴포넌트나 파일 컴포넌트이면 등록해야 한다 . 예시) "태그명" : 컴포넌트명 */
+            "child-component": ChildComponent
+        },
+    });
+
+
+</script>
 
 
 

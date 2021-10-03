@@ -7,7 +7,8 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol, ul, li,
+/* dl, dt, dd, */
+ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 canvas, details, figcaption, figure,
@@ -145,7 +146,7 @@ caption {
 
 xmp {
     line-height: 1.2em;
-    margin:  20px 0 0 30px;
+    margin:  10px 0 0 10px;
 }
 
 pre {
@@ -167,21 +168,25 @@ body > h1, body > h2, body > h3, body > h4, body > h5, body > h6 {
 
 ol { list-style: decimal; }
 ul { list-style: disc; }
-li { margin: 2px  0 5px 0; padding: 2px 0 0 0; }
+li { margin: 2px  0 2px 0; padding: 2px 0 0 0; }
 /* ol > li, ul > li { margin-top: 10px;} */
 
 
 /* liprecode style */
 li.langjs{
-    margin-top: 10px;
+    margin-top: 5px;
     list-style-type: none;
 }
 li.langjs p {
     line-height: 1.5;
 }
-li.langjs ul, li.langjs ol {
+li.langjs ul {
     margin-bottom: 1.0em;
-    margin-left: 1.5em;
+    margin-left: 2em;
+}
+li.langjs ol {
+    margin-bottom: 1.0em;
+    margin-left: 2.5em;
 }
 
 div.langjs {
@@ -190,14 +195,12 @@ div.langjs {
 code[class*="langjs"] {
     color: #000;
     background: transparent;
-    font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
     font-size: 1em;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    line-height: 1.5;
     tab-size: 4;
     hyphens: none;
     padding: 0;
@@ -206,33 +209,30 @@ code[class*="langjs"] {
 
 pre[class*="langjs"] {
     background: #ccc;
-    font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
     font-size: 1em;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    line-height: 1.5;
     tab-size: 4;
     hyphens: none;
     border-radius: 10px;
-    margin-bottom: 10px;
 }
 xmp[class*="langjs"] {
     margin: 0 0 0 0;
     padding: 0 0 0 10px;
-    /* background: #ccc; */
-    font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
     font-size: 1em;
     text-align: left;
     white-space: pre;
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    line-height: 1.5;
     tab-size: 4;
     hyphens: none;
     border-radius: 10px;
-    margin-bottom: 10px;
+}
+.boldred {
+    font-weight: bold;
+    color: red;
 }

@@ -10,7 +10,7 @@
 
 <body>
     <xmp>
-        Vue.js v-for 지시자와 props 를 사용방법에 대해서 학습한다.
+        Vue.js v-for 지시자와 props 를 사용하는 방법에 대해서 학습한다.
 
         단순 배열을 바인딩하는 방법 학습
         array = [1,2,3,4,5];
@@ -25,10 +25,11 @@
         ];
 
         문제.
-        1.지역 컴포넌트 "component-box"의 template
+        1. 지역 컴포넌트 "component-box"의 template
         <span style="display:inline-block; font-size:3em; border:1px dashed blue; padding:10px 20px; margin:5px; text-align:center;">
             {{num}}
         </span>
+
         2. 버튼을 클릭할 때마다 지역 컴포넌트를 추가하시오.
 
         [참조]
@@ -57,6 +58,47 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"> /* vue 라우터 플러그인 임포트 */</script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"> /* axios 플러그인 임포트 */</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> /* jQuery 플러그인 임포트 */</script>
+<script>
+    var componentBox = {
+        /* pdtmc^2w */
+        props: ["num"] ,
+        template: `
+        <span style="display:inline-block; font-size:3em; border:1px dashed blue; padding:10px 20px; margin:5px; text-align:center;">
+            {{num}}
+        </span>
+        `,
+    };
+
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            arr: [0,1,2,3,4],
+        },
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 + 일반 함수 */
+            clickAddBox(){
+                // this.$dagta.arr.push(this.$data.arr.length);
+                // this.$data.arr[this.$data.arr.length] = this.$data.arr.length;
+                this.$set( this.$data.arr,  this.$data.arr.length+"",  this.$data.arr.length);
+            },
+        },
+        components: {
+            /* 전역 컴포넌트는 등록하지 않는다. */
+            /* 지역 컴포넌트나 파일 컴포넌트이면 등록해야 한다 . 예시) "태그명" : 컴포넌트명 */
+            "component-box": componentBox,
+        },
+    });
+
+
+</script>
 
 
 

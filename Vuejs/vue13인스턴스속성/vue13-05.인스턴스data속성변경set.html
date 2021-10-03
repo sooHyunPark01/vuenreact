@@ -111,45 +111,59 @@
 </html>
 
 <!-- vue 플러그인 임포트   -->
-
-<!-- vue 플러그인 임포트   -->
 <script src="https://unpkg.com/vue@2.6.14/dist/vue.js">/* vue 플러그인 임포트 */</script>
 <script>
-new Vue({
-    /* edtmc^2w */
-    el: "#app",
-    data: {
-        /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
-        arr:[1, 2, 3, 4, 5],
-    },
-    //template: ``,
-    methods: {
-        /* 이벤트 핸들러 등록 + 일반 함수 */
-        change1(event){
-            // console.log(event.target);
-            // // alert(1);
-            // this.$data.arr[0]=100;
-            // console.log( this.$data.arr[0] );
-            //[100, 2, 3, 4, 5]
-             this.$set(this.$data.arr , 0 ,100)
+    new Vue({
+        /* edtmc^2w */
+        el: "#app",
+        data: {
+            /* 인스턴스 안에서 사용되는 변수 등록, 공유 변수 */
+            arr:[1, 2, 3, 4, 5],
         },
-        change2(){
-            // alert(2);
-            //100, 300, 3, 4, 5]
-             // this.$data.arr[1]=300;
-            this.$set(this.$data.arr , "1" ,300)
+        //template: ``,
+        methods: {
+            /* 이벤트 핸들러 등록 + 일반 함수 */
+            change1(event){
+                console.log(event.target);
+
+                // (1) [100, 2, 3, 4, 5]       <== 방법1을 적용
+                this.$data.arr[0] = 100;
+                console.log( this.$data.arr ); // [100, 2, 3, 4, 5]
+                //로그는 [100, 2, 3, 4, 5] 출력되지만 화면은 [1, 2, 3, 4, 5] 출력됨
+                // 화면은 왜 안바뀔까? 화면도 바뀌게 하려면 어떻게 하면 될까?
+
+                this.$set( this.$data.arr, 0, 100 );
+                //로그는 [100, 2, 3, 4, 5] 출력되고 화면도 [100, 2, 3, 4, 5] 로 출력됨
+                console.log( this.$data.arr ); // [100, 2, 3, 4, 5]
+            },
+            change2(){
+                console.log(event.target);
+                // (2) [100, 300, 3, 4, 5]     <== 방법2을 적용
+                // this.$data.arr[1] = 300;
+                this.$set( this.$data.arr, "1", 300);
+                console.log( this.$data.arr ); // [100, 300, 3, 4, 5]
+            },
+            change3(){
+                console.log(window.event.target);
+                // (3) [3, 4, 5]               <== 방법3을 적용
+                this.$data.arr.splice( 0, 2); // array.splice() 는 복제 후 재할당 기능이 들어 있다.
+                console.log( this.$data.arr ); // [3, 4, 5]
+            },
+            change4(){
+                console.log(event.target);
+                // (4) [500, 3, 4, 5, 70]      <== 방법4을 적용
+                // this.$data.arr 배열을 복제해서 새로운 배열을 만드시오.
+                const newarr = [...this.$data.arr, 70];
+                // this.$data.arr.forEach(element => {
+                //     newarr.push(element);
+                // });
+                this.$data.arr = newarr;
+                console.log( this.$data.arr ); // [3, 4, 5, 70]
+            },
         },
-        change3(){
-            // alert(3);
-            this.$data.arr.splice(0,2);
-            console.log( this.$data.arr );
-        },
-        change4(){
-            var arr_copy = [ ...this.$data.arr, 70]
-            this.$data.arr =arr_copy;
-        },
-    },
-});
+    });
 
 </script>
+
+
 
