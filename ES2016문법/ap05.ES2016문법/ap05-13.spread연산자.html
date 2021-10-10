@@ -40,3 +40,28 @@
 </body>
 
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script type="text/babel">
+    const cities = ["서울","부산","제주"]
+    console.log(cities[0],cities[1],cities[2]);
+    console.log(...cities);
+
+    const east=["U","K","T"];
+    const west=["N","C","G"];
+    const countires=[...east , ...west]; // ... :spread 연산자
+    console.info(countires)
+
+    let lakes=[1,2,3,4,]
+    let [first, ...rest] =lakes;
+    console.log(first);
+    console.log(rest);
+
+    const car1={type:"t1", color:"s1", model:2017};
+    const car2={type:"t2", color:"s2", model:2019};
+    const func = ( {type} ) => console.info(type);
+
+    func(...car1, ...car2)
+
+</script>
