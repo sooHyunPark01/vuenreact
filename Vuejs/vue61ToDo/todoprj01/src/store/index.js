@@ -49,7 +49,7 @@ export default  new Vuex.Store({
      * 두번째인자: 값. mutations.commit() 호출시 넘겨지는 값.
      * */
       todo(state, params){
-        
+        state.todoItems =params;
       },
       clearAll(state){
         state.todoItems =[];
