@@ -73,10 +73,88 @@
 
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js">
+    /*  import ReactRouterDOM, {BrowserRouter, Switch, Route, Redirect, Link, NavLink} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+<script type="text/babel">
+    // import React, { useState, useEffect, useRef, useCallback, useMemo, Fragment } from 'react';
+    // import PropTypes from 'prop-types';
+    // import ReactRedux, { Provider, useDispatch, useSelector } from 'react-redux';
+    // import ReactRouterDOM, { BrowserRouter, Switch, Route, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+    // import { takeEvery, put, call, all, fork, spawn } from 'redux-saga/effects';
+    
+     const { useState, useEffect, useRef, useCallback, useMemo, Fragment  } =React;
+    
+    function Example(props) {
+        // 컴포넌트의 상태값 설정
+        const [age, setAge] = useState(42);
+        const [fruit, setFruit] = useState('banana');
+        const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+        // 이벤트 핸들러 작성.
+        const handler = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+          //  console.log(event.target);
+            //부모 콜백
+            props.callback( +1 )
+        };
+        const toDoText= todos.map( (item, index) =>{
+                       return <li>{ item.text}</li>
+        })       
+        // JSX로 화면 만들기
+        return (
+            <div>
+                <p>You clicked {props.count} times</p>
+                <button onClick={handler}>
+                    Click me
+                </button>
+                <p>age:{age }</p>
+                <p>fruit:{fruit}</p>
+                <ul>
+                    { todos && todos.map( (item, index) => <li>{ item.text}</li> )  }
+                </ul>
+            </div>
+        )
+    }
+    function EaxmpleContainer(props) {
+        // 컴포넌트의 상태값 설정
+        const [count, setCount] = useState(0);                
+        // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
+        const callback = useCallback( (param)=>{
+            // state 변경
+            setCount( count+ param)
+        },[count]);
+ 
+        
+        // JSX로 화면 만들기
+        return (
+            <div>
+                <Example count={count} callback={callback}/>
+            </div>
+        )
+    }    
+    ReactDOM.render(<EaxmpleContainer />, document.getElementById("app") )
+</script>
 
 
 
 
 
 
-
+

@@ -55,3 +55,71 @@
 
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js">
+    /*  import ReactRouterDOM, {BrowserRouter, Switch, Route, Redirect, Link, NavLink} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+<script type="text/babel">
+    // import React, { useState, useEffect, useRef, useCallback, useMemo, Fragment } from 'react';
+    // import PropTypes from 'prop-types';
+    // import ReactRedux, { Provider, useDispatch, useSelector } from 'react-redux';
+    // import ReactRouterDOM, { BrowserRouter, Switch, Route, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+    // import { takeEvery, put, call, all, fork, spawn } from 'redux-saga/effects';
+    
+     const { useState, useEffect, useRef, useCallback, useMemo, Fragment  } =React;
+    
+    function KingContatiner(props) {
+        const[ arr , setArr] =useState([ 
+            { name:"세종대왕", idx: 0},
+            { name:"이순신", idx: 1},
+            { name:"광개토대왕", idx: 2},
+            { name:"왕건", idx: 3},
+    ])
+        const kingArr = arr.map( (item, index) =>{
+            return (
+            <King name={item.name}>
+                <span>{item.idx}</span>
+            </King>
+            )
+        })
+              
+        // JSX로 화면 만들기
+        return (
+            <Fragment>
+                {kingArr}
+            </Fragment>    
+        )
+    }
+  
+   
+    function King(props) {
+              console.info(props.children)
+              // JSX로 화면 만들기
+              return (
+                <div>
+                    {props.name}
+                    {props.children}
+                </div> 
+              )
+    }
+
+
+    ReactDOM.render(<KingContatiner/>, document.getElementById("app"))
+        
+</script>
