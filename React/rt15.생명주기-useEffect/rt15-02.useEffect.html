@@ -33,18 +33,25 @@
         1. ExampleContainer, Example 컴포넌를 만든다.
         2. ExampleContainer 컴포넌트의 상태값 만들기
             const [state, setState] = useState({ id: 0, name: '', count: 10, }); // 상태값이 참조타입 경우
-        3. Example 컴포넌트의 상태값 만들기
+            const callbackState= useCallback( ( param) =>{
+                  //상태변경  
+            },[state]);
+        3 . ExampleContainer 의 JSX
+        <div>
+            <Example state={state} callbackState={callbackState}></Example>
+        </div>           
+        4. Example 컴포넌트의 상태값 만들기
             const [age, setAge] = useState(42);
             const [fruit, setFruit] = useState('banana');
             const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
-        4.Example 컴포넌트의 JSX
+        5.Example 컴포넌트의 JSX
             <div>
-                <p>You clicked {count} times</p>
+                <p>You clicked {props.count} times</p>
                 <button onClick={(event) => alert("상태값을 바꾸는 코드를 작성하시오.") }>
                 Click me
                 </button>
             </div>
-        4. age, fruit, todos 상태값이 출력되게 하시오.
+        6. age, fruit, todos 상태값이 출력되게 하시오.
     </xmp>
     <hr>
 
@@ -54,10 +61,93 @@
 
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js">
+    /*  import ReactRouterDOM, {BrowserRouter, Switch, Route, Redirect, Link, NavLink} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+<script type="text/babel">
+    // import React, { useState, useEffect, useRef, useCallback, useMemo, Fragment } from 'react';
+// import PropTypes from 'prop-types';
+// import ReactRedux, { Provider, useDispatch, useSelector } from 'react-redux';
+// import ReactRouterDOM, { BrowserRouter, Switch, Route, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+// import { takeEvery, put, call, all, fork, spawn } from 'redux-saga/effects';
+
+ const { useState, useEffect, useRef, useCallback, useMemo, Fragment  } =React;
+
+function ExampleContainer(props) {
+    // 컴포넌트의 상태값 설정
+    const [state, setState] = useState({ id: 0, name: '', count: 10, }); // 상태값이 참조타입 경우
+    const callbackState= useCallback( ( param) =>{
+        //상태변경  
+        const newState ={...state, ...param}
+        setState( newState )
+     },[state]);    
+    
+
+     
+     // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
+     const refIsMounted = useRef(false);
+    useEffect( () => {
+        if (refIsMounted.current){
+            // 업데이트 될 때마다 실행됨. 여러번. state 가 변경될 때마다
+            console.log('componentDidUpdate');
+        }
+        else {
+            // 마운트 완료 후에 실행됨. 한번만. focus 줄때
+            console.log('componentDidMount');
+            refIsMounted.current = true;
+        }
+    },[/* 메서드와 연관되는 상태(변수)들을 적으면 된다.*/ state]);
+    // JSX로 화면 만들기
 
 
+    // JSX로 화면 만들기
+    return (
+        <div>
+            <Example state={state} callbackState={callbackState}></Example>
+        </div>
+    )
+}
 
+function Example(props) {
+    // 컴포넌트의 상태값 설정
+    const [age, setAge] = useState(42);
+    const [fruit, setFruit] = useState('banana');
+    const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
 
+    const handler = (event) => {
+        debugger
+        console.log(event.target);
+        const obj = { count: 5 ,}
+        props.callbackState( obj )
+    };
+    
+    return (
+        <div>                
+                <p>You clicked {props.state.count} times</p>
+                <button onClick={handler}>
+                Click me
+                </button>
+            </div>
+    )
+}
 
+ReactDOM.render(<ExampleContainer></ExampleContainer>, document.getElementById("app"))
 
-
+</script>

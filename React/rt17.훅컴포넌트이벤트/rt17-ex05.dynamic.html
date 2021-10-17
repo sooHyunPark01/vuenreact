@@ -45,9 +45,69 @@
 </body>
 </html>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js">
+    /*  import ReactRouterDOM, {BrowserRouter, Switch, Route, Redirect, Link, NavLink} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+<script type="text/babel">
+    // import React, { useState, useEffect, useRef, useCallback, useMemo, Fragment } from 'react';
+    // import PropTypes from 'prop-types';
+    // import ReactRedux, { Provider, useDispatch, useSelector } from 'react-redux';
+    // import ReactRouterDOM, { BrowserRouter, Switch, Route, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+    // import { takeEvery, put, call, all, fork, spawn } from 'redux-saga/effects';
+    
+     const { useState, useEffect, useRef, useCallback, useMemo, Fragment  } =React;
+    
+    function Shap(props) {
+        // 컴포넌트의 상태값 설정
+        const [ classSateName, setClassSateName] = useState('ready'); // 상태값이 기본타입인 경우
+        const [state, setState] = useState({ id: 0, name: '', age: 0, }); // 상태값이 참조타입 경우
+        // ready => active => done => ready -->
+        const handler =useCallback( ()=>{
+            classSateName ==='ready'  
+            && setClassSateName('active');
+            
+            classSateName ==='active'  
+            && setClassSateName('done');
+
+            classSateName ==='done'  
+            && setClassSateName('ready');
+
+        } ,[ classSateName ])
+
+         // JSX로 화면 만들기
+        return (
+            <div 
+                className={classSateName}
+                onClick={handler}
+                >
+                {classSateName}                
+            </div>
+        )
+    }
+    ReactDOM.render(<Shap></Shap> , document.getElementById("app"))
+ 
+</script>
 <!-- react 플러그인 include   -->
 <!-- 주의: 사이트를 배포할 때는 "development.js"를 "production.min.js"로 대체하세요. -->
 
 
 
-
+

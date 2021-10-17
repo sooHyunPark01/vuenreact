@@ -97,3 +97,103 @@
 
 </html>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js">
+    /*  import ReactRouterDOM, {BrowserRouter, Switch, Route, Redirect, Link, NavLink} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+
+<script type="text/babel">
+    // import React, { useState, useEffect, useRef, useCallback, useMemo, Fragment } from 'react';
+    // import PropTypes from 'prop-types';
+    // import ReactRedux, { Provider, useDispatch, useSelector } from 'react-redux';
+    // import ReactRouterDOM, { BrowserRouter, Switch, Route, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+    // import { takeEvery, put, call, all, fork, spawn } from 'redux-saga/effects';
+    
+     const { useState, useEffect, useRef, useCallback, useMemo, Fragment  } =React;
+    
+    function Parent(props) {
+        // 컴포넌트의 상태값 설정
+        const [counter, setCounter] = useState(0); // 상태값이 기본타입인 경우
+        
+        // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
+        const callBackCounter = useCallback( (step)=>{
+            // state 변경
+            setCounter( counter + step )
+        }, [ counter ]);
+        const handlerAddCounter = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            callBackCounter( +10 );
+        };
+        // 이벤트 핸들러 작성.
+        const handlerSubCounter = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            callBackCounter( -10 );
+        };       
+
+        
+        // JSX로 화면 만들기
+        return (
+            <div id="app" class="component-parent">
+            Parent counter : {counter} <br />
+            <button name="parent" onClick={handlerAddCounter}>+</button>
+            <button name="parent" onClick={handlerSubCounter}>-</button>
+            <p></p>
+            <Child 
+                callBackCounter ={callBackCounter} 
+                counter={counter}>
+            </Child>
+        </div>
+        )
+    }
+    
+    function Child(props) {
+        
+        // 이벤트 핸들러 작성.
+        const handlerAddCounter = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            props.callBackCounter( +1 );
+        };
+        // 이벤트 핸들러 작성.
+        const handlerSubCounter = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            props.callBackCounter( -1 );
+        };       
+        // JSX로 화면 만들기
+        return (
+            <div class="component-child">
+            Child counter : {props.counter} <br />
+            <button name="child" onClick={handlerAddCounter}>+</button>
+            <button name="child" onClick={handlerSubCounter}>-</button>
+        </div>
+        )
+    }
+    /*
+    Child.propTypes ={
+         // props의 프로퍼티 타입 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.html
+        counter : PropTypes.number.isRequered,
+        callBackCounter: PropType.func,
+    }
+    Child.defaultProps ={
+        // props의 디폴트 값 설정. https://ko.reactjs.org/docs/typechecking-with-proptypes.htmld
+        callBackCounter: () =>{},        
+    }
+*/
+   ReactDOM.render(<Parent></Parent> , document.getElementById("app"))
+</script>
+
