@@ -239,78 +239,370 @@
 
     </xmp>
     <hr>
-    <div id="app">
-        <h1>Creat Read Update Delete</h1>
-        <div>
-            <div>
-                <label for="">Name : </label>
-                <input type="text" name="name" placeholder="이름을 입력하세요" />
-            </div>
-            <div>
-                <label for="">Power : </label>
-                <input type="number" name="power" placeholder="숫자를 입력하세요"  />
-            </div>
-            <button>Add</button>
-        </div>
-        <hr/>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NAME</th>
-                    <th>POWER</th>
-                    <th>CRUD</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="">
-                    <td>1</td>
-                    <td>슈퍼맨</td>
-                    <td>100</td>
-                    <td>
-                        <button>Del</button>
-                        <button>Power Up</button>
-                        <button>Power Down</button>
-                        <button>Edit</button>
-                    </td>
-                </tr>
-                <tr class="strong">
-                    <td>2</td>
-                    <td>아쿠아맨</td>
-                    <td>300</td>
-                    <td>
-                        <button>Del</button>
-                        <button>Power Up</button>
-                        <button>Power Down</button>
-                        <button>Edit</button>
-                    </td>
-                </tr>
-                <tr class="strong">
-                    <td>3</td>
-                    <td>스파이더맨</td>
-                    <td>500</td>
-                    <td>
-                        <button>Del</button>
-                        <button>Power Up</button>
-                        <button>Power Down</button>
-                        <button>Edit</button>
-                    </td>
-                </tr>
-                <tr class="strong">
-                    <td>4</td>
-                    <td>배트맨</td>
-                    <td>30</td>
-                    <td>
-                        <button>Del</button>
-                        <button>Power Up</button>
-                        <button>Power Down</button>
-                        <button>Edit</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div id="app">        
     </div>
 
 </body>
 </html>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">
+    /* 자바스크립트로 컴파일러. ES6-->ES5, JSX-->ES5 */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js">
+    /* import React, { Component, PureComponent } from 'react' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.7.2/prop-types.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">
+    /* import ReactDOM from 'react-dom' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.2/react-redux.js">
+    /*  import ReactRedux, {Provider, useDispatch, useSelector} from 'react-redux' */
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.js">
+    /*  import ReactRouterDOM, {BrowserRouter, Switch, Route, Redirect, Link, NavLink} from 'react-router-dom' */
+</script>
+<script src="https://unpkg.com/immer">
+    /* 불변객체 state를 조작하는 라이브러리. import immer from 'immer' */
+</script>
+<script type="text/babel">
+    // import React, { useState, useEffect, useRef, useCallback, useMemo, Fragment } from 'react';
+    // import PropTypes from 'prop-types';
+    // import ReactRedux, { Provider, useDispatch, useSelector } from 'react-redux';
+    // import ReactRouterDOM, { BrowserRouter, Switch, Route, Redirect, Link, NavLink, useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
+    // import { takeEvery, put, call, all, fork, spawn } from 'redux-saga/effects';
+    
+     const { useState, useEffect, useRef, useCallback, useMemo, Fragment  } =React;
+    
+    function CrudContainer(props) {
+        // 컴포넌트의 상태값 설정
+        
+        const [items, setItems] = useState(
+            [
+                {id:1, name: "슈퍼맨", power: 100},
+                {id:2, name: "아쿠아맨", power: 300},
+                {id:3, name: "스파이더맨", power: 500},
+                {id:4, name: "배트맨", power: 30},
+            ]
+        ); // 상태값이 참조타입 경우
+        
+        // ref 만들기. 예시) const refInput = useRef();
+        
+        // refIsMounted는 생명주기의 마운트와 업데이트를 구분하기 위한 ref
+        const refIsMounted = useRef(false);
+        useEffect( () => {
+            if (refIsMounted.current){
+                // 업데이트 될 때마다 실행됨. 여러번. state 가 변경될 때마다
+                console.log('componentDidUpdate');
+            }
+            else {
+                // 마운트 완료 후에 실행됨. 한번만. focus 줄때
+                console.log('componentDidMount');
+                refIsMounted.current = true;
+            }
+        },[/* 메서드와 연관되는 상태(변수)들을 적으면 된다.*/]);
+       
+        // callback 메서드 작성. callback 메서드는 부모의 공유 상태값을 변경하기 위해서 사용된다.
+        const callbackAdd = useCallback( (param)=>{
+            // state 변경
+            //item.push()
+         let maxid = 0;
+            if( items.length>0){
+                maxid = items.map( item=>item.id )
+                                            .reduce( (prev,curt)=> prev>= curt ? prev: curt );
+            }
+            else {
+                maxid = 0;
+            }
+            const newid = maxid + 1;            
+            param.id=newid
+            setItems([ ...items, param] )
+
+
+        } ,[items]);
+        
+
+        const callbackDel = useCallback( (param)=>{
+            const newItems = items.filter( (item) => {
+                return item.id != param.id
+            });
+            setItems(newItems);
+        } ,[items]);
+        
+
+        const callbackUp = useCallback( (param)=>{
+            const newItems = items.filter( (item) => {
+                if( item.id == param.id){
+                    item.power +=100
+                }
+                return item
+            });
+            setItems(newItems);
+        } ,[items]);
+        
+
+        const callbackDown = useCallback( (param)=>{
+            const newItems = items.filter( (item) => {
+                if( item.id == param.id){
+                    item.power -=50
+                }
+                return item
+            });
+            setItems(newItems);
+
+        } ,[items]);
+        
+
+        const callbackSave = useCallback( (param)=>{
+            debugger
+            const newItems = items.filter( (item) => {
+                if( item.id == param.id){
+                    item.name =param.name;
+                    item.power =param.power;
+                }
+                return item
+            });
+            setItems(newItems);
+
+
+        } ,[items]);
+
+        // 이벤트 핸들러 작성.
+        const handler = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            console.log(event.target);
+        };
+        // JSX로 화면 만들기
+        return (
+            <div>
+                <h1>Creat Read Update Delete</h1>   
+                <CrudInput callbackAdd={callbackAdd}></CrudInput>
+                <hr/>
+                 <CrudList items={items} 
+                        callbackDel ={callbackDel} 
+                        callbackUp={callbackUp}
+                        callbackDown={callbackDown}
+                        callbackSave={callbackSave}
+                    ></CrudList>
+            </div>
+        )
+    }
+
+    function CrudInput(props) {
+
+        
+        // ref 만들기. 예시) const refInput = useRef();
+        const inputName= useRef();
+        const inputPower= useRef();
+
+
+        
+        const handlerAdd =(event) => {
+
+            if (inputName.current.value === "" ){
+                alert("이름에 값을 입력하세요.")
+                inputName.current.focus();
+                event.stopPropagation();
+                event.preventDefault();
+                return false;
+            }  
+            
+
+            if (inputPower.current.value === "" ){
+                alert("파워에 값을 입력하세요.")
+                inputPower.current.focus();
+                event.stopPropagation();
+                event.preventDefault();
+                return false;
+            }  
+            
+            if( isNaN( Number(inputPower.current.value ) )){
+                alert("파워에 숫자만 입력하세요.")
+                inputPower.current.value =0;
+                inputPower.current.focus();
+                event.stopPropagation();
+                event.preventDefault();                
+                return false;
+            }
+
+            var man={
+                name: inputName.current.value,
+                power: Number( inputPower.current.value ),
+            }
+            props.callbackAdd( man );
+
+            inputPower.current.value = null;
+            inputName.current.value = 0;
+        }
+        
+        // JSX로 화면 만들기
+        return (
+            <div>
+                <div>
+                    <label htmlFor="name">Name : </label>
+                    <input type="text" name="name" placeholder="이름을 입력하세요" ref={inputName}/>
+                </div>
+                <div>
+                    <label htmlFor="number">Power : </label>
+                    <input type="number" name="power" placeholder="숫자를 입력하세요" ref={inputPower} />
+                </div>
+                <button onClick={handlerAdd}>Add</button>
+            </div>
+        )
+    }
+
+
+    function CrudList(props) {
+        const arrs =props.items.map( (item) => {
+            return (
+                <CrudListItem 
+                    item={item} 
+                    key={item.id}    
+                    {...props}
+                    // callbackDel ={props.callbackDel} 
+                    // callbackUp={props.callbackUp}
+                    // callbackDown={props.callbackDown}
+                    // callbackSave={props.callbackSave}                            
+                ></CrudListItem>
+            )
+        })
+        // JSX로 화면 만들기
+        return (
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>POWER</th>
+                            <th>CRUD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {arrs}
+                    </tbody>
+                </table>                      
+            </div>
+        )
+    }
+
+
+    function CrudListItem(props) {
+        // 컴포넌트의 상태값 설정
+        const {item , callbackDel, callbackUp, callbackDown, callbackSave  } =props
+        const [isEditMode, setIsEditMode] = useState(false); // 상태값이 기본타입인 경우
+
+        const inputName= useRef();
+        const inputPower= useRef();
+
+    
+        const handerDel = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+          callbackDel(item)
+        };
+        const handerUp = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            console.log(event.target);
+            callbackUp(item)
+        };
+        const handerDown = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            console.log(event.target);
+            callbackDown (item)
+        };
+        const handerEdit = (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+            console.log(event.target);
+           setIsEditMode( !isEditMode );
+        };
+        const handerSave= (event)=>{
+            // 이벤트 핸들러는 화살표 함수로 만들면 this bind()를 생략해도 된다
+
+            if (inputName.current.value === "" ){
+                alert("이름에 값을 입력하세요.")
+                inputName.current.focus();
+                event.stopPropagation();
+                event.preventDefault();
+                return false;
+            }  
+            
+
+            if (inputPower.current.value === "" ){
+                alert("파워에 값을 입력하세요.")
+                inputPower.current.focus();
+                event.stopPropagation();
+                event.preventDefault();
+                return false;
+            }  
+            
+            if( isNaN( Number(inputPower.current.value ) )){
+                alert("파워에 숫자만 입력하세요.")
+                inputPower.current.value =0;
+                inputPower.current.focus();
+                event.stopPropagation();
+                event.preventDefault();                
+                return false;
+            }
+
+            var newItem={
+                id : item.id, 
+                name: inputName.current.value,
+                power: Number( inputPower.current.value ),
+            }
+            callbackSave( newItem );
+            setIsEditMode( !isEditMode);
+        };
+        
+
+
+        const strong = item.power >= 300 ? 'strong':''
+
+        const formView =(
+            <tr 
+                className={strong} 
+                key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td>{item.power}</td>
+                <td>
+                    <button onClick={handerDel}>Del</button>
+                    <button onClick={handerUp}>Power Up</button>
+                    <button onClick={handerDown}>Power Down</button>
+                    <button onClick={handerEdit}>Edit</button>
+                </td>
+            </tr>
+        )
+
+        const formEdit=(
+            <tr 
+                className={strong} 
+                key={item.id}>
+                <td>{item.id}</td>
+                <td>
+                    <input 
+                        defaultValue={item.name}  
+                        name="name" 
+                        placeholder="이름을 입력하세요" 
+                        ref={inputName} />
+                </td>
+                <td>
+                    <input 
+                        defaultValue={item.power} 
+                        name="power" 
+                        placeholder="파워를 입력하세요" 
+                        ref={inputPower} />
+                </td>
+                <td>
+                    <button onClick={handerDel}>Del</button>
+                    <button onClick={handerUp}>Power Up</button>
+                    <button onClick={handerDown}>Power Down</button>
+                    <button onClick={handerSave}>Save</button>
+                </td>
+            </tr>
+        )
+        // JSX로 화면 만들기
+        return isEditMode ? formEdit : formView;
+    }
+    ReactDOM.render( <CrudContainer></CrudContainer>, document.getElementById("app") )
+</script>
